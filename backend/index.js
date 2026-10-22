@@ -48,16 +48,19 @@ app.use(compression({ threshold: 1024 }));
 const origenesPermitidos = (process.env.CORS_ORIGINS || "http://localhost:3000")
   .split(",").map((o) => o.trim()).filter(Boolean);
 
-app.use(cors({
-  origin(origin, cb) {
-    // Sin Origin (curl, Postman, mismo origen) se permite; los navegadores siempre lo envían
-    if (!origin || origenesPermitidos.includes(origin)) return cb(null, true);
-    cb(new Error("Origen no permitido por CORS"));
-  },
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  exposedHeaders: ["X-Total-Count"], // permite al cliente leer el total para paginar
-  maxAge: 600,
+app.use(cors((req, cb) => {
+  const origin = req.get("Origin");
+  // Mismo origen (el propio sitio) siempre permitido; el resto, solo si está en la lista blanca
+  const propio = `${req.protocol}://${req.get("host")}`;
+  const permitido = !origin || origin === propio || origenesPermitidos.includes(origin);
+  if (!permitido) return cb(new Error("Origen no permitido por CORS"));
+  cb(null, {
+    origin: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["X-Total-Count"], // permite al cliente leer el total para paginar
+    maxAge: 600,
+  });
 }));
 
 app.use(logger);
