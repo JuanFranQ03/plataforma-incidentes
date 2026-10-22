@@ -35,7 +35,7 @@ module.exports = [
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "script",
-      globals: { ...globals.browser, $: "readonly", jQuery: "readonly", Modelo: "readonly", Vista: "readonly", Controlador: "readonly" },
+      globals: { ...globals.browser, $: "readonly", jQuery: "readonly" },
     },
     rules: reglasComunes,
   },

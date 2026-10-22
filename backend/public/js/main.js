@@ -1,3 +1,4 @@
+/* global Modelo, Vista, Controlador */
 // Arranque de la aplicación (archivo externo: la CSP no permite scripts en línea).
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Controlador(new Modelo(), new Vista());
