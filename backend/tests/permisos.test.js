@@ -2,7 +2,7 @@ const { puedeRealizar, MATRIZ } = require("../reglas/permisos");
 
 describe("matriz de permisos por rol", () => {
   test.each([
-    ["lector", "consultar", false],
+    ["lector", "consultar", true],
     ["lector", "crear", false],
     ["lector", "actualizar", false],
     ["lector", "eliminar", false],
