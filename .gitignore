@@ -1,0 +1,7 @@
+node_modules
+.env
+coverage
+backend/generated
+backend/pruebas-resultados.md
+.DS_Store
+*.zip

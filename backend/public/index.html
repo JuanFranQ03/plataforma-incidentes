@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plataforma de Gestión y Monitoreo de Incidentes de Ciberseguridad</title>
+<link rel="stylesheet" href="styles.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <!-- Imagen optimizada: WebP responsive, dimensiones explícitas (evita saltos de diseño) y JPG de respaldo -->
+    <picture>
+      <source type="image/webp" srcset="img/banner-640.webp 640w, img/banner-1280.webp 1280w" sizes="(max-width: 700px) 100vw, 1200px">
+      <img class="banner" src="img/banner-1280.jpg" width="1280" height="318" alt="" fetchpriority="high" decoding="async">
+    </picture>
+    <h1>Plataforma Web de Gestión de Incidentes</h1>
+    <p>Monitoreo, registro y verificación de eventos de ciberseguridad.</p>
+  </header>
+
+  <nav class="site-nav">
+    <div class="nav-container">
+      <button class="menu-toggle" id="btn-menu" type="button" aria-label="Menú de navegación">
+        ☰ Menú
+      </button>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#registro">Registro</a></li>
+      <li><a href="#incidentes">Incidentes</a></li>
+      <li><a href="#protocolos">Reglas y Protocolos</a></li>
+    </ul>
+  </nav>
+
+  <main class="layout">
+    <!-- 1. Reglas y Protocolos (Área Grid: protocolos) -->
+    <aside class="rules-panel" id="protocolos">
+      <h2>🛡️ Reglas y Protocolos Operativos</h2>
+      <p class="rule-intro">Lea atentamente antes de emitir cualquier petición de registro:</p>
+      <ul class="rules-list">
+        <li><strong>Reportes y Métricas:</strong> Visualización analítica del estado de seguridad perimetral y cumplimiento normativo.</li>
+        <li><strong>Ayuda para el operador:</strong> Registre información clara, verificable y conforme a los protocolos de respuesta a incidentes de la organización.</li>
+      </ul>
+    </aside>
+
+    <!-- 0. Autenticación -->
+    <section class="card" id="autenticacion">
+      <h2>Acceso a la plataforma</h2>
+      <div id="panel-login">
+        <form id="formulario-login">
+          <fieldset>
+            <legend>Iniciar sesión</legend>
+            <label for="login-email">Correo</label>
+            <input type="email" id="login-email" autocomplete="username" required>
+            <label for="login-password">Contraseña</label>
+            <input type="password" id="login-password" autocomplete="current-password" required>
+          </fieldset>
+          <button type="submit">Ingresar</button>
+        </form>
+        <details>
+          <summary>¿No tiene cuenta? Registrarse (rol lector)</summary>
+          <form id="formulario-registro-usuario">
+            <label for="reg-nombre">Nombre</label>
+            <input type="text" id="reg-nombre" maxlength="60" required>
+            <label for="reg-email">Correo</label>
+            <input type="email" id="reg-email" autocomplete="username" required>
+            <label for="reg-password">Contraseña (mín. 8, letras y números)</label>
+            <input type="password" id="reg-password" autocomplete="new-password" minlength="8" required>
+            <button type="submit">Crear cuenta</button>
+          </form>
+        </details>
+      </div>
+      <div id="panel-sesion" class="oculta">
+        <p>Sesión: <strong id="sesion-nombre"></strong> (<span id="sesion-rol"></span>)</p>
+        <button type="button" id="btn-logout">Cerrar sesión</button>
+      </div>
+    </section>
+
+    <!-- 2. Formulario de Registro (Área Grid: registro) -->
+    <section class="card oculta" id="registro">
+      <h2 id="titulo-formulario">Registro accesible de incidentes</h2>
+      
+      <div id="mensajes-sistema" aria-live="polite" class="oculta"></div>
+
+      <form id="formulario-incidente">
+        <fieldset>
+          <legend>Datos generales del incidente</legend>
+
+          <label for="tipo">Tipo de incidente</label>
+          <select id="tipo" name="tipo" aria-describedby="ayuda-tipo" required>
+            <option value="">Seleccione una opción</option>
+            <option value="malware">Malware / Ransomware</option>
+            <option value="phishing">Phishing / Ingeniería Social</option>
+            <option value="ddos">Ataque de Negación de Servicio (DDoS)</option>
+            <option value="brute-force">Ataque de Fuerza Bruta / Credential Stuffing</option>
+            <option value="data-leak">Fuga o Exfiltración de Datos</option>
+            <option value="unauthorized-access">Acceso No Autorizado / Privilegios Elevados</option>
+          </select>
+          <small id="ayuda-tipo">Seleccione la categoría principal del ataque detectado.</small>
+
+          <label for="fecha">Fecha del incidente</label>
+          <input type="date" id="fecha" name="fecha" required>
+
+          <label for="prioridad">Prioridad</label>
+          <select id="prioridad" name="prioridad" required>
+            <option value="">Seleccione prioridad</option>
+            <option value="alta">Alta</option>
+            <option value="media">Media</option>
+            <option value="baja">Baja</option>
+          </select>
+
+          <label for="sistema">Sistema afectado</label>
+          <input type="text" id="sistema" name="sistema" placeholder="Ej. Servidor Web Principal" required>
+
+          <label for="confidencialidad">Nivel de confidencialidad</label>
+          <select id="confidencialidad" name="confidencialidad" required>
+            <option value="">Seleccione nivel</option>
+            <option value="critico">Crítico</option>
+            <option value="restringido">Restringido</option>
+            <option value="interno">Interno</option>
+          </select>
+
+          <label for="descripcion">Descripción del incidente</label>
+          <textarea id="descripcion" name="descripcion" rows="4" required minlength="30" maxlength="400" aria-describedby="ayuda-desc" placeholder="Describa los detalles técnicos (mínimo 30 caracteres)"></textarea>
+          <small id="ayuda-desc">Incluya indicadores de compromiso (IoC) si están disponibles.</small>
+        </fieldset>
+        <button type="submit" id="btn-guardar">Registrar incidente</button>
+        <button type="button" id="btn-cancelar-edicion" class="oculta">Cancelar edición</button>
+      </form>
+    </section>
+
+    <!-- 3. Incidentes Recientes (Área Grid: incidentes) -->
+    <section class="card oculta" id="incidentes">
+      <h2>Incidentes recientes</h2>
+      <div class="filtros">
+        <label for="filtro-estado">Estado</label>
+        <select id="filtro-estado">
+          <option value="">Todos</option><option>Abierto</option><option>En proceso</option><option>Cerrado</option>
+        </select>
+        <label for="filtro-prioridad">Prioridad</label>
+        <select id="filtro-prioridad">
+          <option value="">Todas</option><option value="alta">Alta</option><option value="media">Media</option><option value="baja">Baja</option>
+        </select>
+      </div>
+      <div id="contenedor-incidentes"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Curso: Desarrollo en Plataformas | Unidad 8 - Ingeniería en Ciberseguridad</p>
+  </footer>
+
+  <script src="js/modelo.js"></script>
+  <script src="js/vista.js"></script>
+  <script src="js/controlador.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

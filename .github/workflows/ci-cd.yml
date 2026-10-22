@@ -1,0 +1,66 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pruebas:
+    name: Pruebas y lint
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: incidentes_test
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/incidentes_test
+      JWT_SECRET: secreto-solo-para-ci-con-mas-de-32-caracteres-123456
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            backend/package-lock.json
+
+      - name: Lint (ESLint)
+        run: npm ci && npm run lint
+
+      - name: Instalar dependencias del backend
+        working-directory: backend
+        run: npm ci
+
+      - name: Verificar migraciones contra PostgreSQL limpio
+        working-directory: backend
+        run: npm run build
+
+      - name: Pruebas unitarias con cobertura
+        working-directory: backend
+        run: npm run test:coverage
+
+  despliegue:
+    name: Despliegue en Render
+    needs: pruebas # si las pruebas fallan, este job NO se ejecuta
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar Deploy Hook de Render
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "Falta el secreto RENDER_DEPLOY_HOOK_URL"; exit 1; fi
+          curl --fail --silent --show-error -X POST "$HOOK"

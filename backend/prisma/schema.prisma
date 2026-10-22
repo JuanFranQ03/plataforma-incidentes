@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Incidente {
+  id               Int      @id @default(autoincrement())
+  tipo             String   // Tipo de incidente
+  fecha            DateTime // Fecha del incidente
+  prioridad        String
+  sistemaAfectado  String
+  confidencialidad String   // Nivel de confidencialidad
+  descripcion      String   @db.Text
+  estado           String   @default("Abierto")
+  createdAt        DateTime @default(now())
+
+  // Acelera el listado filtrado por estado/prioridad y ordenado por fecha de creación
+  @@index([estado, prioridad, createdAt])
+}
+
+model Usuario {
+  id           Int      @id @default(autoincrement())
+  nombre       String
+  email        String   @unique
+  passwordHash String   // hash bcrypt, nunca la contraseña en claro
+  rol          String   @default("lector") // admin | analista | lector
+  createdAt    DateTime @default(now())
+}

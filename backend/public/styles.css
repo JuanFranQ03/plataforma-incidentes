@@ -1,0 +1,341 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #e2e8f0;
+  background: #0f172a;
+  line-height: 1.5;
+  padding: 0;
+}
+
+/* Header semántico */
+.site-header {
+  background: #1e293b;
+  padding: 1.4rem 1.6rem;
+  border-bottom: 1px solid #334155;
+}
+
+.site-header h1 {
+  margin: 0 0 0.4rem 0;
+  font-size: 1.5rem;
+  color: #34d399;
+}
+
+.site-header p {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+/* Navegación y Menú Hamburguesa (Corregido) */
+.site-nav {
+  background: #1e293b;
+  border-bottom: 1px solid #334155;
+  position: relative;
+  width: 100%;
+}
+
+.nav-container {
+  padding: 0.8rem 1.6rem;
+  display: flex;
+  justify-content: flex-start; /* Alinea el botón a la izquierda */
+}
+
+.menu-toggle {
+  display: inline-block;
+  background: #0f172a;
+  border: 1px solid #34d399;
+  color: #34d399;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: auto; /* Evita que ocupe toda la barra en escritorio */
+}
+
+.menu-toggle:hover {
+  background: #1e293b;
+}
+
+/* Lista de enlaces desplegable */
+.nav-links {
+  list-style: none;
+  display: none; /* Oculto por defecto */
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 100%; /* Ocupa todo el ancho hacia abajo */
+  background: #0f172a;
+  border-top: 1px solid #334155;
+}
+
+/* Estado abierto */
+.site-nav.open .nav-links {
+  display: flex;
+}
+
+.nav-links li {
+  width: 100%;
+}
+
+.nav-links a {
+  color: #34d399;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+  padding: 1rem 1.6rem;
+  border-bottom: 1px solid #1e293b;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #6ee7b7;
+  background: #1e293b;
+}
+
+/* Layout principal actualizado con Grid Areas */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 2fr) minmax(280px, 1fr);
+  grid-template-areas:
+    "autenticacion protocolos"
+    "registro incidentes";
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+/* Asignación de áreas semánticas */
+#registro { grid-area: registro; }
+#protocolos { grid-area: protocolos; }
+#incidentes { grid-area: incidentes; align-self: start; }
+
+/* Tarjetas */
+.card {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #f8fafc;
+  font-size: 1.25rem;
+  border-bottom: 2px solid #064e3b;
+  padding-bottom: 0.5rem;
+}
+
+/* Panel Visual de Reglas */
+.rules-panel {
+  background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+  border: 1px solid #059669;
+  border-radius: 8px;
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.rules-panel h2 {
+  margin-top: 0;
+  color: #a7f3d0;
+  font-size: 1.15rem;
+  border-bottom: 1px solid #047857;
+  padding-bottom: 0.4rem;
+}
+
+.rule-intro {
+  font-size: 0.9rem;
+  color: #d1fae5;
+  margin-bottom: 0.8rem;
+}
+
+.rules-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  font-size: 0.88rem;
+  color: #e2e8f0;
+}
+
+.rules-list li {
+  margin-bottom: 0.5rem;
+}
+
+.metrics-mini {
+  margin-top: 1rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed #059669;
+  font-size: 0.82rem;
+  color: #34d399;
+}
+
+/* Formulario accesible */
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  margin-top: 1rem;
+  color: #cbd5e1;
+}
+
+input, select, textarea, button {
+  font: inherit;
+  padding: 0.6rem;
+  width: 100%;
+  border: 1px solid #475569;
+  border-radius: 6px;
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid #059669;
+  border-color: transparent;
+}
+
+small {
+  display: block;
+  margin-top: 0.25rem;
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+fieldset {
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin: 0 0 1.2rem 0;
+  background: #0f172a;
+}
+
+legend {
+  font-weight: bold;
+  padding: 0 0.4rem;
+  color: #34d399;
+}
+
+button[type="submit"] {
+  background: #059669;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0.75rem 1.2rem;
+  width: auto;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+  background: #047857;
+}
+
+/* Sub-elementos de incidentes */
+.incident-item {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  padding: 0.8rem;
+  margin-bottom: 0.8rem;
+  height: auto;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.incident-item p {
+  margin: 0.4rem 0;
+  white-space: pre-wrap; 
+  word-break: break-all; /* Fuerza la ruptura de cadenas ininterrumpidas */
+  line-height: 1.5;
+  max-height: 120px; /* Límite visual estricto */
+  overflow-y: auto;  /* Activa scroll vertical */
+}
+
+.incident-item h3 {
+  margin: 0 0 0.3rem 0;
+  color: #34d399;
+  font-size: 1rem;
+}
+
+/* Footer */
+.site-footer {
+  padding: 1.2rem 1.6rem;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  background: #1e293b;
+  text-align: center;
+  border-top: 1px solid #334155;
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 1024px) {
+  .layout {
+    grid-template-columns: 1fr;
+    /* Orden en móvil: Protocolos primero, Registro centro, Incidentes al final */
+    grid-template-areas:
+      "protocolos"
+      "autenticacion"
+      "registro"
+      "incidentes";
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    margin: 1rem 0.5rem;
+    padding: 0;
+  }
+}
+
+/* Alertas dinámicas JS */
+.alerta {
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.alerta.error {
+  background: #7f1d1d;
+  border: 1px solid #f87171;
+  color: #fecaca;
+}
+
+.alerta.exito {
+  background: #064e3b;
+  border: 1px solid #34d399;
+  color: #a7f3d0;
+}
+
+.oculta {
+  display: none;
+}
+
+.input-error {
+  border: 2px solid #ef4444 !important;
+}
+
+/* Unidad 6: autenticación y acciones */
+#autenticacion { grid-area: autenticacion; }
+.filtros { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; margin-bottom: 1rem; }
+.filtros select { width: auto; }
+.acciones { display: flex; gap: .5rem; margin-top: .5rem; }
+.acciones button, #btn-logout, #btn-cancelar-edicion {
+  background: #334155; color: #fff; border: none; border-radius: 6px; padding: .4rem .9rem; cursor: pointer;
+}
+.acciones .peligro { background: #b91c1c; }
+details { margin-top: 1rem; }
+
+/* Unidad 7: banner optimizado y paginación */
+.banner { display: block; width: 100%; max-width: 1200px; height: auto; max-height: 200px; object-fit: cover; object-position: center; margin: 0 auto 1rem; border-radius: 8px; }
+.paginacion { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-top: 1rem; }
+.paginacion button { background: #334155; color: #fff; border: none; border-radius: 6px; padding: .4rem .9rem; cursor: pointer; }
+button:disabled { opacity: .6; cursor: not-allowed; }
