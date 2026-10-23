@@ -4,7 +4,7 @@ Aplicación web para registrar, consultar, actualizar y eliminar incidentes de c
 
 - **URL en producción:** `https://TU-SERVICIO.onrender.com` ← reemplazar
 - **Health check:** `https://TU-SERVICIO.onrender.com/salud`
-- Documentación: [`docs/DOCUMENTACION_TECNICA.md`](docs/DOCUMENTACION_TECNICA.md) · [`docs/MANUAL_USUARIO.md`](docs/MANUAL_USUARIO.md) · [`docs/SEGURIDAD.md`](docs/SEGURIDAD.md) · [`docs/GUIA_DEFENSA.md`](docs/GUIA_DEFENSA.md)
+
 
 ## Ejecución local
 Requisitos: Node.js 20+, PostgreSQL 14+.
