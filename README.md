@@ -2,7 +2,7 @@
 
 Aplicación web para registrar, consultar, actualizar y eliminar incidentes de ciberseguridad, con autenticación JWT y permisos por rol. Desplegada en Render con base de datos PostgreSQL y CI/CD en GitHub Actions.
 
-- **URL en producción:** `https://plataforma-incidentes-hc5j.onrender.com/` ← reemplazar
+- **URL en producción:** `https://plataforma-incidentes-hc5j.onrender.com/`
 - **Health check:** `https://plataforma-incidentes-hc5j.onrender.com/salud`
 
 
