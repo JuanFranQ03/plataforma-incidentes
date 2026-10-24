@@ -2,14 +2,14 @@
 
 Aplicación web para registrar, consultar, actualizar y eliminar incidentes de ciberseguridad, con autenticación JWT y permisos por rol. Desplegada en Render con base de datos PostgreSQL y CI/CD en GitHub Actions.
 
-- **URL en producción:** `https://plataforma-incidentes-hc5j.onrender.com/`
-- **Health check:** `https://plataforma-incidentes-hc5j.onrender.com/salud`
-
+* URL en producción: `https://plataforma-incidentes-hc5j.onrender.com/`
+* Health check: `https://plataforma-incidentes-hc5j.onrender.com/salud`
 
 ## Ejecución local
+
 Requisitos: Node.js 20+, PostgreSQL 14+.
 
-```bash
+```
 npm install                      # raíz: ESLint
 cd backend
 npm install
@@ -20,9 +20,10 @@ npm start                        # http://localhost:3000  (API + interfaz)
 npm test                         # pruebas unitarias (Jest)
 ```
 
-Pruebas de API (con el servidor encendido): `npm run pruebas:api`. Contra producción: `$env:API="https://plataforma-incidentes-hc5j.onrender.com/"; npm run pruebas:api`.
+Pruebas de API (con el servidor encendido): `npm run pruebas:api`. Contra producción: `$env:API="https://plataforma-incidentes-hc5j.onrender.com"; npm run pruebas:api`.
 
 ## Estructura
+
 ```
 .github/workflows/ci-cd.yml   # pruebas → despliegue (Deploy Hook de Render)
 backend/                      # Root Directory en Render

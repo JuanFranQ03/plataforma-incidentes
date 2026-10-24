@@ -170,7 +170,12 @@ class Controlador {
 
   // ---------- Eliminar ----------
   async eliminar(id) {
-    if (!confirm(`¿Eliminar el incidente #${id}? Esta acción no se puede deshacer.`)) return;
+    const confirmado = await this.vista.confirmar(
+      `¿Está seguro de eliminar el incidente #${id}?`,
+      'Esta acción no se puede deshacer.',
+      'Sí, eliminar'
+    );
+    if (!confirmado) return;
     try {
       await this.modelo.eliminarIncidente(id);
       this.vista.mostrarAlerta('Incidente eliminado', 'exito');

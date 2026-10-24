@@ -296,11 +296,18 @@ button[type="submit"]:hover {
 
 /* Alertas dinámicas JS */
 .alerta {
-  padding: 1rem;
-  margin-bottom: 1.2rem;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: max-content;
+  max-width: min(92vw, 560px);
+  padding: 1rem 1.4rem;
   border-radius: 6px;
   font-weight: bold;
-  font-size: 0.95rem;
+  font-size: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
 .alerta.error {
@@ -339,3 +346,37 @@ details { margin-top: 1rem; }
 .paginacion { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; margin-top: 1rem; }
 .paginacion button { background: #334155; color: #fff; border: none; border-radius: 6px; padding: .4rem .9rem; cursor: pointer; }
 button:disabled { opacity: .6; cursor: not-allowed; }
+
+/* Diálogo de confirmación */
+#dialogo-confirmar {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #1e293b;
+  color: #f1f5f9;
+  padding: 1.6rem 1.8rem;
+  width: min(92vw, 440px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+#dialogo-confirmar::backdrop { background: rgba(2, 6, 23, 0.7); }
+#dialogo-confirmar h2 { margin: 0 0 .6rem; font-size: 1.25rem; }
+#dialogo-confirmar p { margin: 0 0 1.4rem; color: #cbd5e1; }
+.dialogo-botones { display: flex; gap: .8rem; justify-content: flex-end; }
+.dialogo-botones button {
+  border: none; border-radius: 6px; padding: .6rem 1.2rem; font-size: 1rem; font-weight: bold;
+  cursor: pointer; background: #475569; color: #fff;
+}
+.dialogo-botones button.peligro { background: #b91c1c; }
+.dialogo-botones button:focus-visible { outline: 3px solid #f2a541; outline-offset: 2px; }
+
+/* Mostrar / ocultar contraseña */
+.campo-clave { display: flex; gap: .5rem; align-items: stretch; }
+.campo-clave input { flex: 1; min-width: 0; }
+.ver-clave {
+  width: 2.8rem; flex: 0 0 auto; padding: 0; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: #334155; color: #fff;
+}
+.ver-clave:hover { background: #475569; }
+.ver-clave .ojo-cerrado { display: none; }
+.ver-clave[aria-pressed="true"] .ojo-abierto { display: none; }
+.ver-clave[aria-pressed="true"] .ojo-cerrado { display: block; }

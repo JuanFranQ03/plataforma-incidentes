@@ -1,7 +1,7 @@
 // Ejecutar con el servidor encendido y tras "npm run seed":  node pruebas.js
 // Genera la tabla de resultados en pruebas-resultados.md
 const fs = require("fs");
-const BASE = process.env.API || "http://localhost:3000";
+const BASE = (process.env.API || "http://localhost:3000").replace(/\/+$/, ""); // sin barra final
 const resultados = [];
 
 async function api(ruta, { metodo = "GET", token, body, headers = {} } = {}) {

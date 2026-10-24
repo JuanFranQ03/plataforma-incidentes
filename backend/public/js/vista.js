@@ -4,6 +4,33 @@ class Vista {
     this.contenedor = document.querySelector('#contenedor-incidentes');
     this.mensajes = document.querySelector('#mensajes-sistema');
     this.temporizadorAlerta = null;
+    this.dialogo = document.querySelector('#dialogo-confirmar');
+    this.dialogoTitulo = document.querySelector('#dialogo-titulo');
+    this.dialogoTexto = document.querySelector('#dialogo-texto');
+    this.dialogoSi = document.querySelector('#dialogo-si');
+    this.dialogoNo = document.querySelector('#dialogo-no');
+  }
+
+  // Muestra un diálogo con botones Sí / No. Devuelve una promesa: true si confirma, false si cancela
+  // (botón No, tecla Esc o cierre del diálogo).
+  confirmar(titulo, texto, textoSi = 'Sí') {
+    return new Promise((resolve) => {
+      this.dialogoTitulo.textContent = titulo;
+      this.dialogoTexto.textContent = texto;
+      this.dialogoSi.textContent = textoSi;
+      const fin = (valor) => {
+        this.dialogoSi.onclick = null;
+        this.dialogoNo.onclick = null;
+        this.dialogo.onclose = null;
+        if (this.dialogo.open) this.dialogo.close();
+        resolve(valor);
+      };
+      this.dialogoSi.onclick = () => fin(true);
+      this.dialogoNo.onclick = () => fin(false);
+      this.dialogo.onclose = () => fin(false);
+      this.dialogo.showModal();
+      this.dialogoNo.focus(); // el foco inicial va en "No": evita borrar por accidente con Enter
+    });
   }
 
   // Escapa HTML para evitar XSS al mostrar datos

@@ -8,6 +8,18 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
+  <!-- Avisos globales (visibles también antes de iniciar sesión) -->
+  <div id="mensajes-sistema" role="alert" aria-live="polite" class="oculta"></div>
+
+  <!-- Diálogo de confirmación (reemplaza al confirm() del navegador) -->
+  <dialog id="dialogo-confirmar" aria-labelledby="dialogo-titulo">
+    <h2 id="dialogo-titulo"></h2>
+    <p id="dialogo-texto"></p>
+    <div class="dialogo-botones">
+      <button type="button" id="dialogo-no">No, cancelar</button>
+      <button type="button" id="dialogo-si" class="peligro">Sí, eliminar</button>
+    </div>
+  </dialog>
   <header class="site-header">
     <!-- Imagen optimizada: WebP responsive, dimensiones explícitas (evita saltos de diseño) y JPG de respaldo -->
     <picture>
@@ -52,7 +64,10 @@
             <label for="login-email">Correo</label>
             <input type="email" id="login-email" autocomplete="username" required>
             <label for="login-password">Contraseña</label>
-            <input type="password" id="login-password" autocomplete="current-password" required>
+            <div class="campo-clave">
+              <input type="password" id="login-password" autocomplete="current-password" required>
+              <button type="button" class="ver-clave" data-destino="login-password" aria-pressed="false" aria-label="Mostrar contraseña" title="Mostrar contraseña"><svg class="ojo ojo-abierto" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ojo ojo-cerrado" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C5 20 1 12 1 12a18.5 18.5 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.1 9.1 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
+            </div>
           </fieldset>
           <button type="submit">Ingresar</button>
         </form>
@@ -64,7 +79,10 @@
             <label for="reg-email">Correo</label>
             <input type="email" id="reg-email" autocomplete="username" required>
             <label for="reg-password">Contraseña (mín. 8, letras y números)</label>
-            <input type="password" id="reg-password" autocomplete="new-password" minlength="8" required>
+            <div class="campo-clave">
+              <input type="password" id="reg-password" autocomplete="new-password" minlength="8" required>
+              <button type="button" class="ver-clave" data-destino="reg-password" aria-pressed="false" aria-label="Mostrar contraseña" title="Mostrar contraseña"><svg class="ojo ojo-abierto" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg><svg class="ojo ojo-cerrado" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C5 20 1 12 1 12a18.5 18.5 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.1 9.1 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button>
+            </div>
             <button type="submit">Crear cuenta</button>
           </form>
         </details>
@@ -79,7 +97,6 @@
     <section class="card oculta" id="registro">
       <h2 id="titulo-formulario">Registro accesible de incidentes</h2>
       
-      <div id="mensajes-sistema" aria-live="polite" class="oculta"></div>
 
       <form id="formulario-incidente">
         <fieldset>
